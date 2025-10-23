@@ -4,11 +4,12 @@ import com.login.exemplo.Entity.Usuario;
 import com.login.exemplo.Repostories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired
@@ -34,6 +35,10 @@ public class UsuarioController {
             else{
                 return ResponseEntity.ok("Senha incorreta");
             }
+          }
         }
+        @GetMapping(value = "usuario/listar")
+        public ResponseEntity<?> findAll() {
+            return ResponseEntity.ok(usuarioRepository.findAll());
     }
 }
