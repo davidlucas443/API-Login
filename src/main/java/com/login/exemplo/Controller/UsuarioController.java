@@ -21,11 +21,11 @@ public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @PostMapping(value = "usuario/cadastro")
-    public ResponseEntity<Usuario> saveUser(@RequestBody Usuario user) {
+    @PostMapping(value = "cadastro")
+    public ResponseEntity<?> saveUser(@RequestBody Usuario user) {
         Usuario usuario = new Usuario(user.getName(), user.getEmail(), user.getPassword());
         usuarioRepository.save(usuario);
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok("Deu certo pohaaaaaaaaaaaaaaaa");
     }
 
     @PostMapping("login")
@@ -43,18 +43,59 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "usuario/listar")
-    public List<Usuario>listarUsuarios() {
+    public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
 
     @GetMapping(value = "{id}")
-    public Optional<Usuario>usuariosId(@PathVariable int id){
+    public Optional<Usuario> usuariosId(@PathVariable int id) {
         return usuarioRepository.findById(id);
     }
 
-    @DeleteMapping(value = "{id}")
-    public  ResponseEntity<?> deleteId(@PathVariable int id) {
-        usuarioRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuário deletado com sucesso");
+//    @DeleteMapping(value = "{id}")
+//    public ResponseEntity<?> deleteId(@PathVariable int id) {
+//        usuarioRepository.deleteById(id);
+//        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuário deletado com sucesso");
+//    }
+
+//    @DeleteMapping("{id}")
+//    public ResponseEntity<?> deletar(@PathVariable Integer id) {
+//
+//        if (usuarioRepository.existsById(id)) {
+//            usuarioRepository.deleteById(id);
+//            return ResponseEntity.noContent().build();
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deletar(@PathVariable Integer id) {
+
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Excluído com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esse ID não existe");
+        }
+
     }
+
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Usuario> atualizar(@PathVariable int id, @RequestBody Usuario novoUsuario) {
+//
+//        Optional<Usuario>UsuarioExiste = usuarioRepository.findById(id);
+//
+//        if (UsuarioExiste.isPresent()) {
+//            Usuario Usuario = UsuarioExiste.get();
+//            Usuario.setName(novoUsuario.getName());
+//            Usuario.setPassword(novoUsuario.getPassword());
+//            usuarioRepository.save(Usuario);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esse ID não existe");
+//        }
+//    }
+
 }
+
+
+
