@@ -68,7 +68,7 @@ public class UsuarioController {
 //            return ResponseEntity.notFound().build();
 //        }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id) {
 
         if (usuarioRepository.existsById(id)) {
@@ -80,21 +80,22 @@ public class UsuarioController {
 
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Usuario> atualizar(@PathVariable int id, @RequestBody Usuario novoUsuario) {
-//
-//        Optional<Usuario>UsuarioExiste = usuarioRepository.findById(id);
-//
-//        if (UsuarioExiste.isPresent()) {
-//            Usuario Usuario = UsuarioExiste.get();
-//            Usuario.setName(novoUsuario.getName());
-//            Usuario.setPassword(novoUsuario.getPassword());
-//            usuarioRepository.save(Usuario);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esse ID não existe");
-//        }
-//    }
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody Usuario novoUsuario) {
 
+        Optional<Usuario> UsuarioExiste = usuarioRepository.findById(id);
+
+        if (UsuarioExiste.isPresent()) {
+            Usuario Usuario = UsuarioExiste.get();
+            Usuario.setName(novoUsuario.getName());
+            Usuario.setPassword(novoUsuario.getPassword());
+            usuarioRepository.save(Usuario);
+            return ResponseEntity.status(HttpStatus.OK).body(Usuario);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esse ID não existe");
+        }
+
+    }
 }
 
 

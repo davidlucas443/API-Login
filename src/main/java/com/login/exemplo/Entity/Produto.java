@@ -17,10 +17,14 @@ public class Produto {
 
     private int quantidade;
 
-    public Produto(int quantidade, Double preco, String name) {
-        this.quantidade = quantidade;
-        this.preco = preco;
+    public Produto() {
+
+    }
+
+    public Produto(String name, Double preco, int quantidade) {
         this.name = name;
+        this.preco = preco;
+        this.quantidade = quantidade;
     }
 
     public int getQuantidade() {
