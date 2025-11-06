@@ -1,7 +1,6 @@
-package com.login.exemplo.Repostories;
+package com.login.exemplo.repostories;
 
-import com.login.exemplo.Entity.Produto;
-import com.login.exemplo.Entity.Usuario;
+import com.login.exemplo.entity.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

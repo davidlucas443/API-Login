@@ -1,18 +1,17 @@
 package com.login.exemplo.Controller;
 
-import ch.qos.logback.core.status.Status;
-import com.login.exemplo.Entity.Usuario;
-import com.login.exemplo.Repostories.UsuarioRepository;
-import jdk.jshell.Snippet;
+import com.login.exemplo.dto.UsuarioRequestDTO;
+import com.login.exemplo.dto.UsuarioResponseDTO;
+import com.login.exemplo.entity.Usuario;
+import com.login.exemplo.repostories.UsuarioRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Stack;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -22,7 +21,7 @@ public class UsuarioController {
     UsuarioRepository usuarioRepository;
 
     @PostMapping(value = "cadastro")
-    public ResponseEntity<?> saveUser(@RequestBody Usuario user) {
+    public ResponseEntity<?> saveUser(@Valid @RequestBody UsuarioRequestDTO user) {
         Usuario usuario = new Usuario(user.getName(), user.getEmail(), user.getPassword());
         usuarioRepository.save(usuario);
         return ResponseEntity.ok("Deu certo pohaaaaaaaaaaaaaaaa");
@@ -41,9 +40,15 @@ public class UsuarioController {
             }
         }
     }
+//
+//    @GetMapping(value = "usuario/listar")
+//    public List<Usuario> listarUsuarios() {
+//        return usuarioRepository.findAll();
+//    }
+
 
     @GetMapping(value = "usuario/listar")
-    public List<Usuario> listarUsuarios() {
+    public List<UsuarioResponseDTO> listarUsuarios() {
         return usuarioRepository.findAll();
     }
 

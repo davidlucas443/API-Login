@@ -1,8 +1,9 @@
 package com.login.exemplo.Controller;
 
-import com.login.exemplo.Entity.Produto;
-import com.login.exemplo.Entity.Usuario;
-import com.login.exemplo.Repostories.ProdutoRepository;
+import com.login.exemplo.dto.ProdutoRequestDTO;
+import com.login.exemplo.entity.Produto;
+import com.login.exemplo.repostories.ProdutoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,27 +21,22 @@ public class ProdutoController {
     @Autowired
     ProdutoRepository produtoRepository;
 
-    @GetMapping(value = "produto/listar")
-    public List<Produto> listarUsuarios() {
-        return produtoRepository.findAll();
-    }
+//    @GetMapping(value = "produto/listar")
+//    public List<Produto> listarUsuarios() {
+//        return produtoRepository.findAll();
+//    }
 
     @GetMapping(value = "{id}")
     public Optional<Produto> produtoId(@PathVariable int id) {
         return produtoRepository.findById(id);
     }
 
-
-
-
     @PostMapping(value = "cadastre")
-    public ResponseEntity<?> saveProduto(@RequestBody Produto prod) {
+    public ResponseEntity<?> saveProduto(@Valid @RequestBody ProdutoRequestDTO prod) {
         Produto produto = new Produto(prod.getName(), prod.getPreco(), prod.getQuantidade());
         produtoRepository.save(produto);
         return ResponseEntity.ok("Produto Cadastrado com sucesso");
     }
-
-
 
 
     @DeleteMapping("{id}")

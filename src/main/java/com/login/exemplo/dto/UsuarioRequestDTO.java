@@ -1,0 +1,54 @@
+package com.login.exemplo.dto;
+
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+public class UsuarioRequestDTO {
+
+    @NotBlank(message = "O nome não pode ser nulo")
+    private String name;
+
+    @NotBlank(message = "Você está fazendo fezes")
+    private String email;
+
+    @Size(min = 6, max = 20, message = "A senha deve ter entre 6 e 20 carácteres")
+    private String password;
+
+    public UsuarioRequestDTO() {
+
+    }
+
+    public UsuarioRequestDTO(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+
+
