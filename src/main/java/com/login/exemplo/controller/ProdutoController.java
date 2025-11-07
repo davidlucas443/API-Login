@@ -64,7 +64,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody Produto produto) {
+    public ResponseEntity<?> atualizar(@Valid @PathVariable int id, @RequestBody ProdutoRequestDTO produto) {
 
         Optional<Produto> novo = produtoRepository.findById(id);
 
