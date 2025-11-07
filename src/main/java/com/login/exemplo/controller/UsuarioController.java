@@ -101,7 +101,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody Usuario novoUsuario) {
+    public ResponseEntity<?> atualizar(@Valid @PathVariable int id, @RequestBody UsuarioRequestDTO novoUsuario) {
 
         Optional<Usuario> UsuarioExiste = usuarioRepository.findById(id);
 
