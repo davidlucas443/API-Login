@@ -1,7 +1,10 @@
 package com.login.exemplo.Controller;
 
 import com.login.exemplo.dto.ProdutoRequestDTO;
+import com.login.exemplo.dto.ProdutoResponseDTO;
+import com.login.exemplo.dto.UsuarioResponseDTO;
 import com.login.exemplo.entity.Produto;
+import com.login.exemplo.entity.Usuario;
 import com.login.exemplo.repostories.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +41,19 @@ public class ProdutoController {
         return ResponseEntity.ok("Produto Cadastrado com sucesso");
     }
 
+    @GetMapping(value = "listar")
+    public List<ProdutoResponseDTO>listarUsuario() {
+        List<Produto> produtos = produtoRepository.findAll();
+//        List<UsuarioResponseDTO>listDeUsuarios = new ArrayList<>();
+        List<ProdutoResponseDTO> listaDeProdutos =
+                produtos.stream().map(ProdutoResponseDTO::new).toList();
+        for (Produto produto : produtos) {
+            listaDeProdutos.add(new ProdutoResponseDTO(produto));
+        }
+        return listaDeProdutos;
 
-    @DeleteMapping("{id}")
+    }
+        @DeleteMapping("{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id) {
 
         if (produtoRepository.existsById(id)) {

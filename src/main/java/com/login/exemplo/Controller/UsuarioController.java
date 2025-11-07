@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,15 +48,30 @@ public class UsuarioController {
 //    }
 
 
-    @GetMapping(value = "usuario/listar")
-    public List<UsuarioResponseDTO> listarUsuarios() {
-        return usuarioRepository.findAll();
+//    @GetMapping(value = "{id}")
+//    public List<UsuarioResponseDTO> listarUsuarios(@PathVariable int id) {
+//        return usuarioRepository.findById(id);
+//    }
+
+    @GetMapping(value = "listar")
+    public List<UsuarioResponseDTO>listarUsuario(){
+        List<Usuario> usuarios = usuarioRepository.findAll();
+//        List<UsuarioResponseDTO>listDeUsuarios = new ArrayList<>();
+        List<UsuarioResponseDTO>listaDeUsuarios =
+                usuarios.stream().map(UsuarioResponseDTO::new).toList();
+        for(Usuario usuario : usuarios){
+            listaDeUsuarios.add(new UsuarioResponseDTO(usuario));
+        }
+        return listaDeUsuarios;
+
     }
 
-    @GetMapping(value = "{id}")
-    public Optional<Usuario> usuariosId(@PathVariable int id) {
-        return usuarioRepository.findById(id);
-    }
+
+
+//    @GetMapping(value = "{id}")
+//    public Optional<Usuario> usuariosId(@PathVariable int id) {
+//        return usuarioRepository.findById(id);
+//    }
 
 //    @DeleteMapping(value = "{id}")
 //    public ResponseEntity<?> deleteId(@PathVariable int id) {

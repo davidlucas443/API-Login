@@ -1,35 +1,32 @@
 package com.login.exemplo.dto;
 
+import com.login.exemplo.entity.Usuario;
 import jakarta.persistence.Column;
 
 public class UsuarioResponseDTO {
 
+
+    private int id;
+
     private String name;
 
-    @Column(unique = true)
     private String email;
 
-    public UsuarioResponseDTO(){
-
+    public UsuarioResponseDTO(Usuario user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
     }
-    public UsuarioResponseDTO(String name, String email) {
-        this.name = name;
-        this.email = email;
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
