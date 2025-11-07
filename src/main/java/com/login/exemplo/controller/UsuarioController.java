@@ -1,4 +1,4 @@
-package com.login.exemplo.Controller;
+package com.login.exemplo.controller;
 
 import com.login.exemplo.dto.UsuarioRequestDTO;
 import com.login.exemplo.dto.UsuarioResponseDTO;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

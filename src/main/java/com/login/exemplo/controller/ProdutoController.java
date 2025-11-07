@@ -1,10 +1,8 @@
-package com.login.exemplo.Controller;
+package com.login.exemplo.controller;
 
 import com.login.exemplo.dto.ProdutoRequestDTO;
 import com.login.exemplo.dto.ProdutoResponseDTO;
-import com.login.exemplo.dto.UsuarioResponseDTO;
 import com.login.exemplo.entity.Produto;
-import com.login.exemplo.entity.Usuario;
 import com.login.exemplo.repostories.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +27,10 @@ public class ProdutoController {
 //        return produtoRepository.findAll();
 //    }
 
-    @GetMapping(value = "{id}")
-    public Optional<Produto> produtoId(@PathVariable int id) {
-        return produtoRepository.findById(id);
-    }
+//    @GetMapping(value = "{id}")
+//    public Optional<Produto> produtoId(@PathVariable int id) {
+//        return produtoRepository.findById(id);
+//    }
 
     @PostMapping(value = "cadastre")
     public ResponseEntity<?> saveProduto(@Valid @RequestBody ProdutoRequestDTO prod) {
