@@ -4,6 +4,7 @@ import com.login.exemplo.dto.UsuarioRequestDTO;
 import com.login.exemplo.dto.UsuarioResponseDTO;
 import com.login.exemplo.entity.Usuario;
 import com.login.exemplo.repostories.UsuarioRepository;
+import com.login.exemplo.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,27 +19,19 @@ import java.util.Optional;
 public class UsuarioController {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UsuarioService usuarioService;
 
     @PostMapping(value = "cadastro")
-    public ResponseEntity<?> saveUser(@Valid @RequestBody UsuarioRequestDTO user) {
-        Usuario usuario = new Usuario(user.getName(), user.getEmail(), user.getPassword());
-        usuarioRepository.save(usuario);
-        return ResponseEntity.ok("Deu certo pohaaaaaaaaaaaaaaaa");
+    public ResponseEntity<?> saveUser(@Valid @RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).
+                body(usuarioService.saveUser(usuarioRequestDTO));
     }
 
     @PostMapping("login")
-    public ResponseEntity<?> findUser(@RequestBody Usuario user) {
-        Usuario findUser = usuarioRepository.findByEmail(user.getEmail());
-        if (findUser == null) {
-            return ResponseEntity.ok("Usuário não encontrado");
-        } else {
-            if (findUser.getPassword().equals(user.getPassword())) {
-                return ResponseEntity.ok("Logado com sucesso");
-            } else {
-                return ResponseEntity.ok("Senha incorreta");
-            }
-        }
+    public ResponseEntity<?> findUser(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+//        Usuario findUser = usuarioRequestDTO.getEmail(usuarioRequestDTO.getEmail());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).
+                body(usuarioService.findUser(usuarioRequestDTO));
     }
 //
 //    @GetMapping(value = "usuario/listar")
@@ -90,30 +83,12 @@ public class UsuarioController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id) {
-
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Excluído com sucesso!");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esse ID não existe");
-        }
-
+            return ResponseEntity.ok(usuarioService.deletar(id));
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizar(@Valid @PathVariable int id, @RequestBody UsuarioRequestDTO novoUsuario) {
-
-        Optional<Usuario> UsuarioExiste = usuarioRepository.findById(id);
-
-        if (UsuarioExiste.isPresent()) {
-            Usuario Usuario = UsuarioExiste.get();
-            Usuario.setName(novoUsuario.getName());
-            Usuario.setPassword(novoUsuario.getPassword());
-            usuarioRepository.save(Usuario);
-            return ResponseEntity.status(HttpStatus.OK).body(Usuario);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esse ID não existe");
-        }
+    public ResponseEntity<?> atualizar(PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.atualizar(id));
 
     }
 }
