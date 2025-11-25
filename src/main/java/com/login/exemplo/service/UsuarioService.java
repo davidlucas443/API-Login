@@ -109,7 +109,6 @@ public class UsuarioService {
             UsuarioResponseDTO teste = new UsuarioResponseDTO(usuario);
             return "Usuario atualizado";
         } else {
-//            return "Esse ID não existe";
             return "Esse ID não existe";
         }
 

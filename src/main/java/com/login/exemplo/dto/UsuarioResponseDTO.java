@@ -1,10 +1,8 @@
 package com.login.exemplo.dto;
 
 import com.login.exemplo.entity.Usuario;
-import jakarta.persistence.Column;
 
 public class UsuarioResponseDTO {
-
 
     private int id;
 
